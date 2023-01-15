@@ -1,4 +1,4 @@
-build:
+build: clean
 	GOOS=linux GOARCH=amd64 go build -v -a -o build/bin/app .
 
 init:
@@ -12,3 +12,6 @@ apply:
 
 destroy:
 	terraform -chdir=infra destroy --auto-approve
+
+clean:
+	rm -rf ./build
