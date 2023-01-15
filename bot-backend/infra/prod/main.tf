@@ -9,7 +9,7 @@ variable "app_name" {
 
 variable "app_env" {
   description = "Application environment tag"
-  default     = "dev"
+  default     = "prod"
 }
 
 variable "bot_token" {
@@ -22,8 +22,8 @@ locals {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "../build/bin/app"
-  output_path = "../build/bin/app.zip"
+  source_file = "../../build/prod/bin/app"
+  output_path = "../../build/prod/bin/app.zip"
 }
 
 resource "random_id" "unique_suffix" {

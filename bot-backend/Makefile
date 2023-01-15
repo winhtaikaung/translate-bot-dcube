@@ -1,17 +1,17 @@
 build: clean
-	GOOS=linux GOARCH=amd64 go build -v -a -o build/bin/app .
+	GOOS=linux GOARCH=amd64 go build -v -a -o build/dev/bin/app .
 
 init:
-	terraform -chdir=infra init
+	terraform -chdir=infra/dev init
 
 plan:
-	terraform -chdir=infra plan -var-file=dev.tfvars -out=plan_dev_outfile
+	terraform -chdir=infra/dev plan -var-file=variables.tfvars -out=plan_outfile
 
 apply:
-	terraform -chdir=infra apply --auto-approve "plan_dev_outfile"
+	terraform -chdir=infra/dev apply --auto-approve "plan_outfile"
 
 destroy:
-	terraform -chdir=infra apply -destroy "plan_dev_outfile"
+	terraform -chdir=infra/dev destroy -var-file=variables.tfvars
 
 clean:
-	rm -rf ./build
+	rm -rf ./build/dev

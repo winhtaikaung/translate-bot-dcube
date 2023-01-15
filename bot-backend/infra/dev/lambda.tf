@@ -5,6 +5,13 @@ resource "aws_lambda_function" "lambda_func" {
   source_code_hash = base64sha256(data.archive_file.lambda_zip.output_path)
   runtime          = "go1.x"
   role             = aws_iam_role.lambda_exec.arn
+
+  environment {
+    variables = {
+      app_env   = var.app_env
+      bot_token = var.bot_token
+    }
+  }
 }
 
 # Assume role setup
