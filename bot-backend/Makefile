@@ -5,13 +5,13 @@ init:
 	terraform -chdir=infra init
 
 plan:
-	terraform -chdir=infra plan -out=plan_outfile
+	terraform -chdir=infra plan -var-file=dev.tfvars -out=plan_dev_outfile
 
 apply:
-	terraform -chdir=infra apply --auto-approve "plan_outfile"
+	terraform -chdir=infra apply --auto-approve "plan_dev_outfile"
 
 destroy:
-	terraform -chdir=infra destroy --auto-approve
+	terraform -chdir=infra apply -destroy "plan_dev_outfile"
 
 clean:
 	rm -rf ./build

@@ -12,6 +12,10 @@ variable "app_env" {
   default     = "dev"
 }
 
+variable "bot_token" {
+  description = "API token of Telegram bot"
+}
+
 locals {
   app_id = "${lower(var.app_name)}-${lower(var.app_env)}-${random_id.unique_suffix.hex}"
 }
