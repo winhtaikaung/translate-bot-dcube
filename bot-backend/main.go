@@ -11,6 +11,8 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	ginadapter "github.com/awslabs/aws-lambda-go-api-proxy/gin"
 	"github.com/gin-gonic/gin"
+
+	"github.com/EdgeJay/psg-navi-bot/bot-backend/routes"
 )
 
 var ginLambda *ginadapter.GinLambda
@@ -24,15 +26,8 @@ func isRunningInLambda() bool {
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
-
-	r.GET("/env", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"task_root": os.Getenv("LAMBDA_TASK_ROOT"), "app_env": os.Getenv("app_env")})
-	})
-
-	r.GET("/about-bot", func(c *gin.Context) {
-		// c.JSON(http.StatusOK, gin.H{"task_root": os.Getenv("LAMBDA_TASK_ROOT"), "app_env": os.Getenv("app_env")})
-	})
-
+	r.GET("/env", routes.Env)
+	r.GET("/about-bot", routes.AboutBot)
 	return r
 }
 
