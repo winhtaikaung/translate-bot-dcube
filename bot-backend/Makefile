@@ -1,3 +1,6 @@
+run:
+	app_env=dev go run .
+
 build: clean
 	GOOS=linux GOARCH=amd64 go build -v -a -o build/dev/bin/app .
 
