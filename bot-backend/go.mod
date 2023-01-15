@@ -6,6 +6,7 @@ require (
 	github.com/aws/aws-lambda-go v1.37.0
 	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3
 	github.com/gin-gonic/gin v1.8.2
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 )
 
 require (

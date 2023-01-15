@@ -7,6 +7,8 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
 
 type BotInfoResult struct {
@@ -20,11 +22,16 @@ type BotInfo struct {
 }
 
 func Env(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"task_root": os.Getenv("LAMBDA_TASK_ROOT"), "app_env": os.Getenv("app_env")})
+	c.JSON(http.StatusOK, gin.H{
+		"task_root":         os.Getenv("LAMBDA_TASK_ROOT"),
+		"app_env":           os.Getenv("app_env"),
+		"lambda_invoke_url": utils.GetLambdaInvokeUrl(),
+	})
 }
 
 func AboutBot(c *gin.Context) {
-	if res, err := http.Get(fmt.Sprintf("https://api.telegram.org/bot%s/getMe", os.Getenv("bot_token"))); err != nil {
+	botToken := utils.GetTelegramBotToken()
+	if res, err := http.Get(fmt.Sprintf("https://api.telegram.org/bot%s/getMe", botToken)); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to fetch bot info"})
 	} else {
 		defer res.Body.Close()
@@ -37,3 +44,13 @@ func AboutBot(c *gin.Context) {
 		}
 	}
 }
+
+/*
+func SetWebHook(c *gin.Context) {
+	if bot, err := utils.SetupTelegramBot(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to setup Telegram bot API"})
+	} else {
+		tgbotapi.NewWebhookWithCert()
+	}
+}
+*/
