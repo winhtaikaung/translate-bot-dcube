@@ -8,8 +8,9 @@ resource "aws_lambda_function" "lambda_func" {
 
   environment {
     variables = {
-      app_env   = var.app_env
-      bot_token = var.bot_token
+      app_env           = var.app_env
+      bot_token         = var.bot_token
+      lambda_invoke_url = var.lambda_invoke_url
     }
   }
 }

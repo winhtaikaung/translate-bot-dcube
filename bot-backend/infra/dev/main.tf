@@ -16,6 +16,10 @@ variable "bot_token" {
   description = "API token of Telegram bot"
 }
 
+variable "lambda_invoke_url" {
+  description = "Url to invoke Lambda function"
+}
+
 locals {
   app_id = "${lower(var.app_name)}-${lower(var.app_env)}-${random_id.unique_suffix.hex}"
 }
