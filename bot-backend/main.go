@@ -13,7 +13,7 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	// stdout and stderr are sent to AWS CloudWatch Logs
 	log.Printf("Processing Lambda request %v\n", request.RequestContext)
 	return events.APIGatewayProxyResponse{
-		Body:       fmt.Sprintf("Hello world! Task root: %s, Env: %s", os.Getenv("LAMBDA_TASK_ROOT"), os.Getenv("LAMBDA_TASK_ROOT")),
+		Body:       fmt.Sprintf("Hello world! Task root: %s, Env: %s", os.Getenv("LAMBDA_TASK_ROOT"), os.Getenv("app_env")),
 		StatusCode: 200,
 	}, nil
 }
