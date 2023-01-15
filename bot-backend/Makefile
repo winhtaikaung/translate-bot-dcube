@@ -3,6 +3,7 @@ run:
 
 build: clean
 	GOOS=linux GOARCH=amd64 go build -v -a -o build/dev/bin/app .
+	cp infra/dev/cert.pem build/dev/bin
 
 init:
 	terraform -chdir=infra/dev init

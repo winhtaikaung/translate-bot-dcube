@@ -45,12 +45,10 @@ func AboutBot(c *gin.Context) {
 	}
 }
 
-/*
 func SetWebHook(c *gin.Context) {
-	if bot, err := utils.SetupTelegramBot(); err != nil {
+	if _, err := utils.NewTelegramBot(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to setup Telegram bot API"})
 	} else {
-		tgbotapi.NewWebhookWithCert()
+		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	}
 }
-*/
