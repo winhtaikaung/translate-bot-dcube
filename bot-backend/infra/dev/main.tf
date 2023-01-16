@@ -26,8 +26,8 @@ locals {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "../../build/dev/bin/app"
-  output_path = "../../build/dev/bin/app.zip"
+  source_dir = "../../build/dev/bin"
+  output_path = "../../build/dev/app.zip"
 }
 
 resource "random_id" "unique_suffix" {

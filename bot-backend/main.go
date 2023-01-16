@@ -13,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/routes"
+	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
 
 var ginLambda *ginadapter.GinLambda
@@ -29,6 +30,7 @@ func setupRouter() *gin.Engine {
 	r.GET("/env", routes.Env)
 	r.GET("/about-bot", routes.AboutBot)
 	r.POST("/set-webhook", routes.SetWebHook)
+	r.POST("/bot"+utils.GetTelegramBotToken(), routes.WebHook)
 	return r
 }
 

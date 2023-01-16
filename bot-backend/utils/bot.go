@@ -2,7 +2,6 @@ package utils
 
 import (
 	"log"
-	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -10,16 +9,21 @@ import (
 var bot *tgbotapi.BotAPI
 
 func setupWebHook(bot *tgbotapi.BotAPI) {
-	existingWebHook, err := bot.GetWebhookInfo()
-	if existingWebHook.URL == "" || err != nil {
-		// re-setup webhook
-		// newWebHook, err := tgbotapi.NewWebhookWithCert(GetLambdaInvokeUrl() + "/bot" + GetTelegramBotToken())
-		if dat, err := os.ReadFile("cert.pem"); err == nil {
-			log.Println("got cert", string(dat))
-		} else {
-			log.Println("no cert")
-		}
+	// re-setup webhook
+	newWebHook, err := tgbotapi.NewWebhookWithCert(GetLambdaInvokeUrl()+"/bot"+GetTelegramBotToken(), nil)
+
+	if err != nil {
+		log.Println("unable to create new webhook", err)
 	}
+
+	_, err2 := bot.Request(newWebHook)
+	if err != nil {
+		log.Println("webhook request via bot failed", err2)
+	}
+
+	existingWebHook, err3 := bot.GetWebhookInfo()
+
+	log.Println(existingWebHook.URL, err3)
 }
 
 func NewTelegramBot() (*tgbotapi.BotAPI, error) {
