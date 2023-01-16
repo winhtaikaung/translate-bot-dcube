@@ -75,9 +75,16 @@ func SetWebHook(c *gin.Context) {
 }
 
 func WebHook(c *gin.Context) {
-	var reqBody BotUpdate
-	defer c.Request.Body.Close()
-	err := json.NewDecoder(c.Request.Body).Decode(&reqBody)
-	log.Println(reqBody, err)
+	// var reqBody BotUpdate
+	// defer c.Request.Body.Close()
+	// err := json.NewDecoder(c.Request.Body).Decode(&reqBody)
+
+	// get bot
+	if bot, err := utils.NewTelegramBot(); err != nil {
+		log.Println("Webhook unable to parse update")
+	} else {
+		update, err2 := bot.HandleUpdate(c.Request)
+		log.Println(update.Message.Text, update.Message.From.UserName, err2)
+	}
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
