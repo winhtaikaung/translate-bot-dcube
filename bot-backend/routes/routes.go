@@ -8,7 +8,9 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
+	"github.com/EdgeJay/psg-navi-bot/bot-backend/commands"
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
 
@@ -36,7 +38,7 @@ func AboutBot(c *gin.Context) {
 	}
 }
 
-func SetWebHook(c *gin.Context) {
+func InitBot(c *gin.Context) {
 	if _, err := utils.NewTelegramBot(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to setup Telegram bot API"})
 	} else {
@@ -47,10 +49,31 @@ func SetWebHook(c *gin.Context) {
 func WebHook(c *gin.Context) {
 	// get bot
 	if bot, err := utils.NewTelegramBot(); err != nil {
-		log.Println("Webhook unable to parse update")
+		log.Println("Webhook unable to init bot")
 	} else {
-		update, err2 := bot.HandleUpdate(c.Request)
-		log.Println(update.Message.Text, update.Message.From.UserName, err2)
+		if update, err2 := bot.HandleUpdate(c.Request); err2 != nil {
+			log.Println("Webhook unable to parse update")
+		} else {
+			cmdStr := commands.ParseCommand(update)
+			if cmdStr != "" {
+				log.Println("Received command: ", cmdStr)
+				cmd := commands.GetCommandFunc(cmdStr)
+				cmd(update, bot)
+			} else if update.CallbackQuery != nil {
+				/*
+					// Flashes update.CallbackQuery.Data in Telegram window like a toast
+					callback := tgbotapi.NewCallback(update.CallbackQuery.ID, update.CallbackQuery.Data)
+					if _, err := bot.Request(callback); err != nil {
+						log.Println(err)
+					}
+				*/
+
+				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, update.CallbackQuery.Data)
+				if _, err := bot.Send(msg); err != nil {
+					log.Println(err)
+				}
+			}
+		}
 	}
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }

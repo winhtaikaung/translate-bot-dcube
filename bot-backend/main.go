@@ -29,7 +29,7 @@ func setupRouter() *gin.Engine {
 	r := gin.Default()
 	r.GET("/env", routes.Env)
 	r.GET("/about-bot", routes.AboutBot)
-	r.POST("/set-webhook", routes.SetWebHook)
+	r.POST("/init-bot", routes.InitBot)
 	r.POST("/bot"+utils.GetTelegramBotToken(), routes.WebHook)
 	return r
 }
