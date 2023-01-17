@@ -8,6 +8,16 @@ import (
 
 var bot *tgbotapi.BotAPI
 
+type BotInfoResult struct {
+	ID       int64  `json:"id"`
+	Name     string `json:"first_name"`
+	UserName string `json:"username"`
+}
+
+type BotInfo struct {
+	Result BotInfoResult `json:"result"`
+}
+
 func setupWebHook(bot *tgbotapi.BotAPI) {
 	// re-setup webhook
 	newWebHook, err := tgbotapi.NewWebhookWithCert(GetLambdaInvokeUrl()+"/bot"+GetTelegramBotToken(), nil)

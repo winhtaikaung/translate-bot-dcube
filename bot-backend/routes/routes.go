@@ -12,36 +12,6 @@ import (
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
 
-type TelegramUser struct {
-	Id        int    `json:"id"`
-	IsBot     bool   `json:"is_bot"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	UserName  string `json:"username"`
-}
-
-type BotUpdateMessage struct {
-	MessageId       int          `json:"message_id"`
-	MessageThreadId int          `json:"message_thread_id"`
-	From            TelegramUser `json:"from"`
-	Text            string       `json:"text"`
-}
-
-type BotUpdate struct {
-	UpdateId int              `json:"update_id"`
-	Message  BotUpdateMessage `json:"message"`
-}
-
-type BotInfoResult struct {
-	ID       int64  `json:"id"`
-	Name     string `json:"first_name"`
-	UserName string `json:"username"`
-}
-
-type BotInfo struct {
-	Result BotInfoResult `json:"result"`
-}
-
 func Env(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"task_root":         os.Getenv("LAMBDA_TASK_ROOT"),
@@ -56,7 +26,7 @@ func AboutBot(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to fetch bot info"})
 	} else {
 		defer res.Body.Close()
-		var botInfo BotInfo
+		var botInfo utils.BotInfo
 		if err := json.NewDecoder(res.Body).Decode(&botInfo); err != nil {
 			fmt.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to decode bot info"})
@@ -75,10 +45,6 @@ func SetWebHook(c *gin.Context) {
 }
 
 func WebHook(c *gin.Context) {
-	// var reqBody BotUpdate
-	// defer c.Request.Body.Close()
-	// err := json.NewDecoder(c.Request.Body).Decode(&reqBody)
-
 	// get bot
 	if bot, err := utils.NewTelegramBot(); err != nil {
 		log.Println("Webhook unable to parse update")
