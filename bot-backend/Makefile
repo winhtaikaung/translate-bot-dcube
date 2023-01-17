@@ -12,6 +12,8 @@ plan:
 
 apply:
 	terraform -chdir=infra/dev apply --auto-approve "plan_outfile"
+	curl -X POST "`terraform -chdir=infra/dev output -raw api_url`/init-bot"
+	echo "\n"
 
 destroy:
 	terraform -chdir=infra/dev destroy -var-file=variables.tfvars
