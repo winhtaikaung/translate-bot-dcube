@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/EdgeJay/psg-navi-bot/bot-backend/bot"
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/commands"
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
@@ -27,7 +28,7 @@ func AboutBot(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to fetch bot info"})
 	} else {
 		defer res.Body.Close()
-		var botInfo utils.BotInfo
+		var botInfo bot.BotInfo
 		if err := json.NewDecoder(res.Body).Decode(&botInfo); err != nil {
 			fmt.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to decode bot info"})
@@ -38,7 +39,7 @@ func AboutBot(c *gin.Context) {
 }
 
 func InitBot(c *gin.Context) {
-	if _, err := utils.NewTelegramBot(); err != nil {
+	if _, err := bot.NewTelegramBot(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to setup Telegram bot API"})
 	} else {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
@@ -47,7 +48,7 @@ func InitBot(c *gin.Context) {
 
 func WebHook(c *gin.Context) {
 	// get bot
-	if bot, err := utils.NewTelegramBot(); err != nil {
+	if bot, err := bot.NewTelegramBot(); err != nil {
 		log.Println("Webhook unable to init bot")
 	} else {
 		if update, err2 := bot.HandleUpdate(c.Request); err2 != nil {

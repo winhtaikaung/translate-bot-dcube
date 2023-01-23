@@ -17,3 +17,7 @@ func GetTelegramBotToken() string {
 func GetLambdaInvokeUrl() string {
 	return os.Getenv("lambda_invoke_url")
 }
+
+func GetDropboxAccessToken() string {
+	return os.Getenv("dropbox_access_token")
+}

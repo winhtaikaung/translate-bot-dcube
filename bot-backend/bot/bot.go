@@ -1,4 +1,4 @@
-package utils
+package bot
 
 import (
 	"log"
@@ -6,6 +6,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/commands"
+	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
 
 var bot *tgbotapi.BotAPI
@@ -22,7 +23,7 @@ type BotInfo struct {
 
 func setupWebHook(bot *tgbotapi.BotAPI) {
 	// re-setup webhook
-	newWebHook, err := tgbotapi.NewWebhookWithCert(GetLambdaInvokeUrl()+"/bot"+GetTelegramBotToken(), nil)
+	newWebHook, err := tgbotapi.NewWebhookWithCert(utils.GetLambdaInvokeUrl()+"/bot"+utils.GetTelegramBotToken(), nil)
 
 	if err != nil {
 		log.Println("unable to create new webhook", err)
@@ -33,7 +34,7 @@ func setupWebHook(bot *tgbotapi.BotAPI) {
 		log.Println("webhook request via bot failed", err2)
 	}
 
-	if !IsProductionEnv() {
+	if !utils.IsProductionEnv() {
 		existingWebHook, err3 := bot.GetWebhookInfo()
 		log.Println(existingWebHook.URL, err3)
 	}
@@ -66,10 +67,10 @@ func NewTelegramBot() (*tgbotapi.BotAPI, error) {
 		return bot, nil
 	}
 
-	newBot, err := tgbotapi.NewBotAPI(GetTelegramBotToken())
+	newBot, err := tgbotapi.NewBotAPI(utils.GetTelegramBotToken())
 	if err == nil {
 		bot = newBot
-		newBot.Debug = !IsProductionEnv()
+		newBot.Debug = !utils.IsProductionEnv()
 	}
 
 	setupWebHook(newBot)

@@ -5,6 +5,8 @@ import (
 	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+
+	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
 
 func HandleDropboxFileRequest(update *tgbotapi.Update, bot *tgbotapi.BotAPI, params ...string) {
@@ -16,5 +18,11 @@ func HandleDropboxFileRequest(update *tgbotapi.Update, bot *tgbotapi.BotAPI, par
 			fmt.Sprintf("Roger that! Creating Dropbox file request %s, give me a moment", fileRequestName),
 		)
 		SendMessage(msg, bot)
+
+		// Get Dropbox client
+		dbx := utils.NewDropboxClient(utils.GetDropboxAccessToken())
+		if allFileRequests, err := dbx.GetFileRequests(); err == nil {
+			log.Println(allFileRequests)
+		}
 	}
 }
