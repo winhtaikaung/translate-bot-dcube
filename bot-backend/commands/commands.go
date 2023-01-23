@@ -15,7 +15,7 @@ type CommandInfo struct {
 
 var mapping map[string]*CommandInfo
 
-func sendMessage(msg tgbotapi.MessageConfig, bot *tgbotapi.BotAPI) {
+func SendMessage(msg tgbotapi.MessageConfig, bot *tgbotapi.BotAPI) {
 	_, err := bot.Send(msg)
 	if err != nil {
 		log.Println("Webhook unable to send message")
@@ -62,7 +62,7 @@ func Help(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 	if update.Message != nil && update.Message.Chat != nil {
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 		msg.Text = "Hi, trying using /dropbox"
-		sendMessage(msg, bot)
+		SendMessage(msg, bot)
 	}
 }
 
@@ -70,13 +70,13 @@ func GetDropboxCommands(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 	if update.Message != nil && update.Message.Chat != nil {
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 		msg.Text = "Hi, the following commands are available:\n/makefilerequest : Make a new Dropbox file request"
-		sendMessage(msg, bot)
+		SendMessage(msg, bot)
 	}
 }
 
 func NotFoundCommand(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 	if update.Message != nil && update.Message.Chat != nil {
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "I don't understand the command, try /help")
-		sendMessage(msg, bot)
+		SendMessage(msg, bot)
 	}
 }

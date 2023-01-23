@@ -20,6 +20,6 @@ func MakeDropboxFileRequest(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 			fmt.Sprintf("replytocommand,makefilerequest,yes,%s", fileRequestName),
 			fmt.Sprintf("replytocommand,makefilerequest,no,%s", fileRequestName),
 		)
-		sendMessage(msg, bot)
+		SendMessage(msg, bot)
 	}
 }

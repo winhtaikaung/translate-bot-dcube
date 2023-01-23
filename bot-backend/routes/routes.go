@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/commands"
 	"github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
@@ -54,8 +53,8 @@ func WebHook(c *gin.Context) {
 		if update, err2 := bot.HandleUpdate(c.Request); err2 != nil {
 			log.Println("Webhook unable to parse update")
 		} else {
-			cmdStr := commands.ParseCommand(update)
-			if cmdStr != "" {
+			if update.Message != nil {
+				cmdStr := commands.ParseCommand(update)
 				log.Println("Received command: ", cmdStr)
 				cmd := commands.GetCommandFunc(cmdStr)
 				cmd(update, bot)
@@ -68,12 +67,20 @@ func WebHook(c *gin.Context) {
 					}
 				*/
 
-				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, update.CallbackQuery.Data)
-				if _, err := bot.Send(msg); err != nil {
-					log.Println(err)
-				}
+				/*
+					// Sends query data back to user
+					msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, update.CallbackQuery.Data)
+					if _, err := bot.Send(msg); err != nil {
+						log.Println(err)
+					}
+				*/
+
+				queryInfo := commands.ParseCallbackQuery(update, bot)
+				log.Println("Received query: ", queryInfo.QueryType)
+				commands.HandleReplyToCommand(queryInfo, update, bot)
 			}
 		}
 	}
+
 	c.JSON(http.StatusOK, gin.H{"status": "ok"})
 }
