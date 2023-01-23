@@ -8,12 +8,12 @@ resource "aws_lambda_function" "lambda_func" {
 
   environment {
     variables = {
-      app_env              = var.app_env
-      bot_token            = var.bot_token
-      dropbox_app_key      = var.dropbox_app_key
-      dropbox_app_secret   = var.dropbox_app_secret
-      dropbox_access_token = var.dropbox_access_token
-      lambda_invoke_url    = var.lambda_invoke_url
+      app_env               = var.app_env
+      bot_token             = var.bot_token
+      dropbox_app_key       = var.dropbox_app_key
+      dropbox_app_secret    = var.dropbox_app_secret
+      dropbox_refresh_token = var.dropbox_refresh_token
+      lambda_invoke_url     = var.lambda_invoke_url
     }
   }
 }

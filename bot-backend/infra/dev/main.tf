@@ -24,8 +24,8 @@ variable "dropbox_app_secret" {
   description = "Dropbox app secret for PSGNaviBot"
 }
 
-variable "dropbox_access_token" {
-  description = "Dropbox access token for PSGNaviBot"
+variable "dropbox_refresh_token" {
+  description = "Dropbox refresh token for PSGNaviBot"
 }
 
 variable "lambda_invoke_url" {

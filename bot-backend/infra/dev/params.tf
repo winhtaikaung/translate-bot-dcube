@@ -31,11 +31,11 @@ resource "aws_ssm_parameter" "dev_dbx_app_secret" {
   }
 }
 
-resource "aws_ssm_parameter" "dev_dbx_access_token" {
-  name        = "/psg_navi_bot/dev/dropbox_access_token"
-  description = "Dropbox access token for PSGNaviBot"
+resource "aws_ssm_parameter" "dev_dbx_refresh_token" {
+  name        = "/psg_navi_bot/dev/dropbox_refresh_token"
+  description = "Dropbox refresh token for PSGNaviBot"
   type        = "SecureString"
-  value       = var.dropbox_access_token
+  value       = var.dropbox_refresh_token
 
   tags = {
     environment = "dev"
