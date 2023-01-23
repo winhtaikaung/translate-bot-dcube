@@ -8,3 +8,36 @@ resource "aws_ssm_parameter" "dev_params" {
     environment = "dev"
   }
 }
+
+resource "aws_ssm_parameter" "dev_dbx_app_key" {
+  name        = "/psg_navi_bot/dev/dropbox_app_key"
+  description = "Dropbox app key for PSGNaviBot"
+  type        = "SecureString"
+  value       = var.dropbox_app_key
+
+  tags = {
+    environment = "dev"
+  }
+}
+
+resource "aws_ssm_parameter" "dev_dbx_app_secret" {
+  name        = "/psg_navi_bot/dev/dropbox_app_secret"
+  description = "Dropbox app secret for PSGNaviBot"
+  type        = "SecureString"
+  value       = var.dropbox_app_secret
+
+  tags = {
+    environment = "dev"
+  }
+}
+
+resource "aws_ssm_parameter" "dev_dbx_access_token" {
+  name        = "/psg_navi_bot/dev/dropbox_access_token"
+  description = "Dropbox access token for PSGNaviBot"
+  type        = "SecureString"
+  value       = var.dropbox_access_token
+
+  tags = {
+    environment = "dev"
+  }
+}

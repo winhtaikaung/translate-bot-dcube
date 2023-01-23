@@ -16,6 +16,18 @@ variable "bot_token" {
   description = "API token of Telegram bot"
 }
 
+variable "dropbox_app_key" {
+  description = "Dropbox app key for PSGNaviBot"
+}
+
+variable "dropbox_app_secret" {
+  description = "Dropbox app secret for PSGNaviBot"
+}
+
+variable "dropbox_access_token" {
+  description = "Dropbox access token for PSGNaviBot"
+}
+
 variable "lambda_invoke_url" {
   description = "Url to invoke Lambda function"
 }
