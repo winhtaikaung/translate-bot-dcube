@@ -8,6 +8,14 @@ Code is based on snippets provided [here](https://medium.com/swlh/serverless-sup
 2. `go build` command used in `build` target is simplified to `GOOS=linux GOARCH=amd64 go build -v -a -o build/bin/app .`. Build produced tested to be working fine in AWS Lambda.
 3. Modified terraform commands to take in vars from .tfvars file.
 
+## Modifying bot logic
+
+### 1. Adding new commands
+
+1. Open `commands/commands.go` file, locate `GetCommands()` function.
+2. Add new item to `mapping`.
+3. All `CommandFunc` type functions should be stored in `commands` package.
+
 ## References
 
 ### https://blog.canopas.com/golang-serverless-microservices-with-gin-f3c2a4943a6d
