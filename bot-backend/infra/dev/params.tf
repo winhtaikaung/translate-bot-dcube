@@ -41,3 +41,14 @@ resource "aws_ssm_parameter" "dev_dbx_refresh_token" {
     environment = "dev"
   }
 }
+
+resource "aws_ssm_parameter" "dev_openai_api_key" {
+  name        = "/psg_navi_bot/dev/openai_api_key"
+  description = "API key for OpenAI"
+  type        = "SecureString"
+  value       = var.openai_api_key
+
+  tags = {
+    environment = "dev"
+  }
+}

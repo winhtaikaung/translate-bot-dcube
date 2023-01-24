@@ -13,6 +13,7 @@ resource "aws_lambda_function" "lambda_func" {
       dropbox_app_key       = var.dropbox_app_key
       dropbox_app_secret    = var.dropbox_app_secret
       dropbox_refresh_token = var.dropbox_refresh_token
+      openai_api_key        = var.openai_api_key
       lambda_invoke_url     = var.lambda_invoke_url
     }
   }

@@ -28,6 +28,10 @@ variable "dropbox_refresh_token" {
   description = "Dropbox refresh token for PSGNaviBot"
 }
 
+variable "openai_api_key" {
+  description = "API key for OpenAI"
+}
+
 variable "lambda_invoke_url" {
   description = "Url to invoke Lambda function"
 }
