@@ -2,6 +2,26 @@
 
 Code is based on snippets provided [here](https://medium.com/swlh/serverless-super-simple-api-development-with-go-terraform-and-aws-lambda-cc2dd6c531cb) with some amendments:
 
+## Deploying via Makefile and Terraform
+
+Refer to [Makefile](./Makefile) for task details.
+
+### 1. Build backend app binary
+
+`make build`
+
+### 2. Run `terraform plan`
+
+Preview actions Terraform will perform on infrastructure based on changes made to app binary and terraform config.
+
+`make plan`
+
+### 3. Run `terraform apply`
+
+Apply changes to infrastructure based on changes shown in `make plan`
+
+`make apply`
+
 ## Makefile
 
 1. `terraform init|plan|apply|destroy infra` no longer works. To execute terraform commands using configuration in another folder, use `terraform -chdir=infra init|plan|apply|destroy`.
