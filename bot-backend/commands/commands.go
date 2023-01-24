@@ -45,6 +45,14 @@ func GetCommands() map[string]*CommandInfo {
 			Description: "Make a new Dropbox file request",
 			Func:        MakeDropboxFileRequest,
 		}
+		mapping["listfilerequests"] = &CommandInfo{
+			Description: "List all file requests",
+			Func:        GetDropboxFileRequests,
+		}
+		mapping["getfilerequest"] = &CommandInfo{
+			Description: "Get info on a file request",
+			Func:        GetDropboxFileRequestInfo,
+		}
 	}
 	return mapping
 }
@@ -69,7 +77,10 @@ func Help(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 func GetDropboxCommands(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 	if update.Message != nil && update.Message.Chat != nil {
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
-		msg.Text = "Hi, the following commands are available:\n/makefilerequest : Make a new Dropbox file request"
+		msg.Text = `Hi, the following commands are available:
+/makefilerequest : Make a new Dropbox file request
+/listfilerequest : List all file requests
+/getfilerequest  : Get info on a file request`
 		SendMessage(msg, bot)
 	}
 }

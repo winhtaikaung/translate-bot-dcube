@@ -133,6 +133,26 @@ func (dbx *DropboxClient) DoPostRequest(path string, body any, withAccessToken b
 	return client.Do(req)
 }
 
+func (dbx *DropboxClient) GetFileRequestInfo(fileRequestID string) (*DropboxFileRequest, error) {
+	params := make(map[string]string)
+	params["id"] = fileRequestID
+	res, err := dbx.DoPostRequest("/file_requests/get", params, true)
+	if err != nil {
+		log.Printf("Unable to get file request: %s\n", err.Error())
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	var parsedResponse DropboxFileRequest
+	err = json.NewDecoder(res.Body).Decode(&parsedResponse)
+	if err != nil {
+		log.Printf("Unable to decode response to get file request info: %s\n", err.Error())
+		return nil, err
+	}
+
+	return &parsedResponse, nil
+}
+
 func (dbx *DropboxClient) GetFileRequests() (*DropboxFileRequests, error) {
 	res, err := dbx.DoPostRequest("/file_requests/list", nil, true)
 	if err != nil {

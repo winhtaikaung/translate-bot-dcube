@@ -26,18 +26,18 @@ func HandleDropboxFileRequest(update *tgbotapi.Update, bot *tgbotapi.BotAPI, par
 			utils.GetDropboxRefreshToken(),
 		)
 
-		/*
-			if allFileRequests, err := dbx.GetFileRequests(); err == nil {
-				log.Println(allFileRequests)
-			}
-		*/
-
 		if createdFileRequest, err := dbx.CreateFileRequest(fileRequestName); err == nil {
 			msg = tgbotapi.NewMessage(
 				update.CallbackQuery.Message.Chat.ID,
 				fmt.Sprintf("File request created! Please use this link: %s", createdFileRequest.URL),
 			)
-			SendMessage(msg, bot)
+		} else {
+			msg = tgbotapi.NewMessage(
+				update.CallbackQuery.Message.Chat.ID,
+				"Oops, something went wrong. I am unable to create file request now.",
+			)
 		}
+
+		SendMessage(msg, bot)
 	}
 }
