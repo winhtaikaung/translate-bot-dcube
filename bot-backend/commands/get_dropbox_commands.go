@@ -6,7 +6,6 @@ import (
 
 func GetDropboxCommands(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 	if update.Message != nil && update.Message.Chat != nil {
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 		reply := "Hi, the following Dropbox commands are available:"
 
 		// Get all Dropbox related commands
@@ -15,10 +14,7 @@ func GetDropboxCommands(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 			reply += GetCommandOneLinerDesc(command, info, true)
 		}
 
-		msg.Text = `Hi, the following commands are available:
-/makefilerequest : Make a new Dropbox file request
-/listfilerequest : List all file requests
-/getfilerequest  : Get info on a file request`
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, reply)
 		SendMessage(msg, bot)
 	}
 }
