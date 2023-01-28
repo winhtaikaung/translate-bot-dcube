@@ -42,7 +42,7 @@ func setupWebHook(bot *tgbotapi.BotAPI) {
 
 func setupCommands(bot *tgbotapi.BotAPI) {
 	// get list of available commands
-	commands := commands.GetCommands()
+	commands := commands.GetCommands(commands.CATEGORY_ALL)
 
 	botCommands := make([]tgbotapi.BotCommand, 0)
 
