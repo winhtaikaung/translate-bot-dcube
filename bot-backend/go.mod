@@ -1,10 +1,11 @@
-module github.com/EdgeJay/psg-navi-bot/bot-backend
+module github.com/translate-bot-dcube/bot-backend
 
 go 1.19
 
 require (
+	github.com/EdgeJay/psg-navi-bot/bot-backend v0.0.0-20230130060404-6a5731b59b53
 	github.com/aws/aws-lambda-go v1.37.0
-	github.com/awslabs/aws-lambda-go-api-proxy v0.13.3
+	github.com/awslabs/aws-lambda-go-api-proxy v0.14.0
 	github.com/gin-gonic/gin v1.8.2
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 )
