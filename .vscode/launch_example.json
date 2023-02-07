@@ -9,7 +9,11 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${fileDirname}"
+            "program": "${fileDirname}",
+            "env": {
+                "bot_token": "",
+                "lambda_invoke_url": "https://5427-42-60-224-74.ngrok.io"
+            }
         }
     ]
 }
