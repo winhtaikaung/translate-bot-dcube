@@ -13,10 +13,20 @@ import (
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
+
+	// BOT ROUTES
 	r.GET("/env", routes.Env)
 	r.GET("/about-bot", routes.AboutBot)
 	r.POST("/init-bot", routes.InitBot)
 	r.POST("/bot"+utils.GetTelegramBotToken(), routes.WebHook)
+
+	// MOCK ICA SERVICES ROUTES
+	r.POST("/ica/status/:service", routes.QueryICAStatus)
+	r.POST("/ica/sg-arrival-card", routes.GenerateSGArrivalCard)
+
+	// MOCK MOM SERVICES ROUTES
+	r.POST("/mom/status/:service", routes.QueryMOMStatus)
+
 	return r
 }
 
