@@ -12,6 +12,8 @@ import (
 	"github.com/translate-bot-dcube/bot-backend/bot"
 	"github.com/translate-bot-dcube/bot-backend/commands"
 	"github.com/translate-bot-dcube/bot-backend/utils"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func Env(c *gin.Context) {
@@ -56,9 +58,25 @@ func WebHook(c *gin.Context) {
 		} else {
 			if update.Message != nil {
 				cmdStr := commands.ParseCommand(update)
-				log.Println("Received command: ", cmdStr)
-				cmd := commands.GetCommandFunc(cmdStr)
-				cmd(update, bot)
+				if cmdStr != "" {
+					log.Println("Received command: ", cmdStr)
+					cmd := commands.GetCommandFunc(cmdStr)
+					cmd(update, bot)
+				} else {
+					log.Println("Message received: ", update.Message.Text)
+					translated, translatedStr, language := commands.TranslateToEnglishByOpenAI(update.Message.Text)
+					if translated {
+						fmt.Print(translated, translatedStr, language)
+						// here should use the text to do government searching
+						// then translate back to the original language and return
+						searchedText := "I am a mock data"
+						translatedStr = commands.TranslateBackByOpenAI(searchedText, language)
+					}
+					_, err := bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, translatedStr))
+					if err != nil {
+						log.Println("Webhook unable to send message")
+					}
+				}
 			} else if update.CallbackQuery != nil {
 				/*
 					// Flashes update.CallbackQuery.Data in Telegram window like a toast
