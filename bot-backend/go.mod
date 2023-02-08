@@ -3,7 +3,6 @@ module github.com/translate-bot-dcube/bot-backend
 go 1.19
 
 require (
-	github.com/EdgeJay/psg-navi-bot/bot-backend v0.0.0-20230130060404-6a5731b59b53
 	github.com/gin-gonic/gin v1.8.2
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 )
@@ -21,6 +20,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
+	github.com/sashabaranov/go-gpt3 v0.0.0-20230128191859-3695eb3ade92 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e // indirect
 	golang.org/x/net v0.4.0 // indirect

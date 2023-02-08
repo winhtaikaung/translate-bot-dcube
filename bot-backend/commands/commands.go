@@ -8,9 +8,8 @@ import (
 )
 
 const (
-	CATEGORY_ALL     = "all"
-	CATEGORY_TOP     = "top"
-	CATEGORY_DROPBOX = "dropbox"
+	CATEGORY_ALL = "all"
+	CATEGORY_TOP = "top"
 )
 
 type CommandFunc func(update *tgbotapi.Update, bot *tgbotapi.BotAPI)
@@ -55,30 +54,6 @@ func GetCommands(category string) map[string]*CommandInfo {
 			Description: "Get list of available commands",
 			Category:    CATEGORY_TOP,
 			Func:        Help,
-		}
-		mapping["dropbox"] = &CommandInfo{
-			Name:        "Dropbox command",
-			Description: "Get list of available Dropbox commands",
-			Category:    CATEGORY_TOP,
-			Func:        GetDropboxCommands,
-		}
-		mapping["makefilerequest"] = &CommandInfo{
-			Name:        "Make file request command",
-			Description: "Make a new Dropbox file request",
-			Category:    CATEGORY_DROPBOX,
-			Func:        MakeDropboxFileRequest,
-		}
-		mapping["listfilerequests"] = &CommandInfo{
-			Name:        "List all file requests command",
-			Description: "List all file requests",
-			Category:    CATEGORY_DROPBOX,
-			Func:        GetDropboxFileRequests,
-		}
-		mapping["getfilerequest"] = &CommandInfo{
-			Name:        "Get info on file request command",
-			Description: "Get info on a file request",
-			Category:    CATEGORY_DROPBOX,
-			Func:        GetDropboxFileRequestInfo,
 		}
 	}
 

@@ -4,7 +4,7 @@ provider "aws" {
 
 variable "app_name" {
   description = "Application name"
-  default     = "psg-navi-bot-backend"
+  default     = "dcube-translate-bot-backend"
 }
 
 variable "app_env" {
@@ -14,6 +14,10 @@ variable "app_env" {
 
 variable "bot_token" {
   description = "API token of Telegram bot"
+}
+
+variable "openai_api_key" {
+  description = "API key for OpenAI"
 }
 
 variable "lambda_invoke_url" {

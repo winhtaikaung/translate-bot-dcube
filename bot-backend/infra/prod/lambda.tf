@@ -10,6 +10,7 @@ resource "aws_lambda_function" "lambda_func" {
     variables = {
       app_env           = var.app_env
       bot_token         = var.bot_token
+      openai_api_key    = var.openai_api_key
       lambda_invoke_url = var.lambda_invoke_url
     }
   }

@@ -45,8 +45,7 @@ func HandleReplyToCommand(queryInfo *CallbackQueryInfo, update *tgbotapi.Update,
 			return
 		}
 		switch queryInfo.Params[0] {
-		case "makefilerequest":
-			HandleDropboxFileRequest(update, bot, queryInfo.Params[1:]...)
+		// case
 		}
 	}
 }
