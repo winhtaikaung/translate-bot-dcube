@@ -8,8 +8,9 @@ import (
 )
 
 const (
-	CATEGORY_ALL = "all"
-	CATEGORY_TOP = "top"
+	CATEGORY_ALL      = "all"
+	CATEGORY_TOP      = "top"
+	CATEGORY_LANGUAGE = "language"
 )
 
 type CommandFunc func(update *tgbotapi.Update, bot *tgbotapi.BotAPI)
@@ -54,6 +55,12 @@ func GetCommands(category string) map[string]*CommandInfo {
 			Description: "Get list of available commands",
 			Category:    CATEGORY_TOP,
 			Func:        Help,
+		}
+		mapping["languages"] = &CommandInfo{
+			Name:        "Languages support command",
+			Description: "Get list of supported languages",
+			Category:    CATEGORY_LANGUAGE,
+			Func:        Language,
 		}
 	}
 
