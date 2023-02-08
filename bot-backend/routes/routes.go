@@ -8,12 +8,10 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+
 	"github.com/translate-bot-dcube/bot-backend/bot"
 	"github.com/translate-bot-dcube/bot-backend/commands"
 	"github.com/translate-bot-dcube/bot-backend/utils"
-	// "github.com/EdgeJay/psg-navi-bot/bot-backend/bot"
-	// "github.com/EdgeJay/psg-navi-bot/bot-backend/commands"
-	// "github.com/EdgeJay/psg-navi-bot/bot-backend/utils"
 )
 
 func Env(c *gin.Context) {

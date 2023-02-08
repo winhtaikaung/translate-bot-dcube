@@ -1,4 +1,4 @@
-# Dev infra
+# Prod infra
 
 ## Getting Started
 

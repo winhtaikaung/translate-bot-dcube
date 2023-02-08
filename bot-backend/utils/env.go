@@ -18,14 +18,6 @@ func GetLambdaInvokeUrl() string {
 	return os.Getenv("lambda_invoke_url")
 }
 
-func GetDropboxAppKey() string {
-	return os.Getenv("dropbox_app_key")
-}
-
-func GetDropboxAppSecret() string {
-	return os.Getenv("dropbox_app_secret")
-}
-
-func GetDropboxRefreshToken() string {
-	return os.Getenv("dropbox_refresh_token")
+func GetOpenAIAPIKey() string {
+	return os.Getenv(("openai_api_key"))
 }

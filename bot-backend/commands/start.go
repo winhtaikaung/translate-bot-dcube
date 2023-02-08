@@ -7,7 +7,7 @@ import (
 func Start(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
 	if update.Message != nil && update.Message.Chat != nil {
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
-		msg.Text = "Hi, nice to meet you! I am PSGNaviBot, and I am here to help with Dropbox requests and answer some NVPS PSG questions."
+		msg.Text = "Hi, nice to meet you! I am DCube Translate bot, and I am here to help although you don'y know English."
 		SendMessage(msg, bot)
 	}
 }

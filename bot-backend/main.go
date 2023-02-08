@@ -4,7 +4,6 @@ import (
 	// "fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/translate-bot-dcube/bot-backend/routes"
@@ -29,7 +28,6 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	log.Printf("Start Bot")
-	log.Printf(os.Getenv("bot_token"))
 
 	log.Fatal(http.ListenAndServe(":8080", setupRouter()))
 

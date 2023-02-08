@@ -4,7 +4,7 @@ provider "aws" {
 
 variable "app_name" {
   description = "Application name"
-  default     = "psg-navi-bot-backend"
+  default     = "dcube-translate-bot-backend"
 }
 
 variable "app_env" {
@@ -14,18 +14,6 @@ variable "app_env" {
 
 variable "bot_token" {
   description = "API token of Telegram bot"
-}
-
-variable "dropbox_app_key" {
-  description = "Dropbox app key for PSGNaviBot"
-}
-
-variable "dropbox_app_secret" {
-  description = "Dropbox app secret for PSGNaviBot"
-}
-
-variable "dropbox_refresh_token" {
-  description = "Dropbox refresh token for PSGNaviBot"
 }
 
 variable "openai_api_key" {
