@@ -1,3 +1,7 @@
+dev:
+	export $(grep -v '^#' .env)
+	app_env=dev air
+
 run:
 	app_env=dev go run .
 
