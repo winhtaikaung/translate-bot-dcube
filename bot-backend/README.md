@@ -22,6 +22,10 @@ Apply changes to infrastructure based on changes shown in `make plan`
 
 `make apply`
 
+### Extras: `make dev`
+
+Runs golang app in development mode, and live reloads when changes are detected.
+
 ## Makefile
 
 1. `terraform init|plan|apply|destroy infra` no longer works. To execute terraform commands using configuration in another folder, use `terraform -chdir=infra init|plan|apply|destroy`.

@@ -3,10 +3,10 @@ package routes
 import (
 	"fmt"
 	"math/rand"
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/translate-bot-dcube/bot-backend/utils"
 )
 
 type QueryStatusRequestBody struct {
@@ -41,7 +41,7 @@ func QueryICAStatus(c *gin.Context) {
 	var body QueryStatusRequestBody
 
 	if err := c.BindJSON(&body); err != nil {
-		c.String(http.StatusBadRequest, "User information not found!")
+		utils.MakeBadRequestResponse(c, "ERR001", "User information not found!")
 		return
 	}
 
@@ -52,9 +52,9 @@ func QueryICAStatus(c *gin.Context) {
 
 	switch service {
 	case "entry-visa", "short-term-pass", "long-term-pass":
-		c.String(http.StatusOK, QueryICAResponse(body, service))
+		utils.MakeOkResponse(c, QueryICAResponse(body, service))
 	default:
-		c.String(http.StatusBadRequest, "Service not found!")
+		utils.MakeBadRequestResponse(c, "ERR002", "Service not found!")
 	}
 }
 
@@ -62,8 +62,8 @@ func GenerateSGArrivalCard(c *gin.Context) {
 	var requestBody SGArrivalCardRequestBody
 
 	if err := c.BindJSON(&requestBody); err != nil {
-		c.String(http.StatusBadRequest, "User information not found!")
+		utils.MakeBadRequestResponse(c, "ERR001", "User information not found!")
+	} else {
+		utils.MakeOkResponse(c, "Your SG Arrival Card has been submittted successfully!")
 	}
-
-	c.String(http.StatusOK, "Your SG Arrival Card has been submittted successfully!")
 }
