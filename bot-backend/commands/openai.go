@@ -66,21 +66,29 @@ func TranslateToEnglishByOpenAI(question string) (bool, string, string) {
 }
 
 // return translated/error text
-func TranslateBackByOpenAI(question string, language string) string {
-	if language == "" {
-		language = "English"
-	}
+func TranslateBackByOpenAI(question string) string {
+	// if language == "" {
+	// 	language = "English"
+	// }
 	client := gogpt.NewClient(utils.GetOpenAIAPIKey())
 	ctx := context.Background()
 
 	req := gogpt.CompletionRequest{
-		Model:  gogpt.GPT3TextDavinci003,
-		Prompt: fmt.Sprintf("Translate '%q' into %s", question, language),
+		Model: gogpt.GPT3TextDavinci003,
+		Prompt: fmt.Sprintf(`I have this question:
+		%s
+		Translate to English and tell me which of the following text matches the closest,		
+		- What is my work pass status?
+		- How to fill up SG Arrival card?
+		and reply here:
+		`, question),
+		MaxTokens: 256,
 	}
 	resp, err := client.CreateCompletion(ctx, req)
 	if err != nil {
 		log.Println(err)
 		return "Sorry, currently we are facing some problem in translation. Please try again later."
 	}
+	log.Println(resp.Choices)
 	return resp.Choices[0].Text
 }
