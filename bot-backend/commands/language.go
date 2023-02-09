@@ -7,7 +7,7 @@ import (
 )
 
 func Language(update *tgbotapi.Update, bot *tgbotapi.BotAPI) {
-	languages := [5]string{"Burmese", "Chinese/Mandarin", "Malay", "Tamil", "English"}
+	languages := [6]string{"Chinese/Mandarin", "Malay", "Tamil", "English", "Tagalog", "Burmese"}
 
 	if update.Message != nil && update.Message.Chat != nil {
 		reply := "Here's the following languages I can understand:\n"

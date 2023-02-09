@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/translate-bot-dcube/bot-backend/responses"
 	"github.com/translate-bot-dcube/bot-backend/utils"
 )
 
@@ -27,7 +28,7 @@ func generateRandomDate() string {
 	return date[:10]
 }
 
-func QueryMOMResponse(body QueryStatusRequestBody, service string) string {
+func QueryMOMResponse(body responses.QueryStatusRequestBody, service string) string {
 	var status string
 
 	// generate random status
@@ -44,7 +45,7 @@ func QueryMOMResponse(body QueryStatusRequestBody, service string) string {
 }
 
 func QueryMOMStatus(c *gin.Context) {
-	var requestBody QueryStatusRequestBody
+	var requestBody responses.QueryStatusRequestBody
 
 	if err := c.BindJSON(&requestBody); err != nil {
 		utils.MakeBadRequestResponse(c, "ERR001", "User information not found!")

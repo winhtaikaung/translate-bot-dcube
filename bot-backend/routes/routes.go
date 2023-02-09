@@ -64,14 +64,17 @@ func WebHook(c *gin.Context) {
 					cmd(update, bot)
 				} else {
 					log.Println("Message received: ", update.Message.Text)
+
+					log.Println("UserName: ", update.Message.From.FirstName)
 					// translated, translatedStr, language := commands.TranslateToEnglishByOpenAI(update.Message.Text)
 					// if translated {
 					// fmt.Print(translated, translatedStr, language)
 					// here should use the text to do government searching
 					// then translate back to the original language and return
 					translatedStr := ""
+					name := update.Message.From.FirstName
 					searchedText := update.Message.Text
-					translatedStr = commands.TranslateBackByOpenAI(searchedText)
+					translatedStr = commands.IdentifyQuestionFromInputText(name, searchedText)
 					// }
 					_, err := bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, translatedStr))
 					if err != nil {
