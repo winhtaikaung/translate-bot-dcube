@@ -2,10 +2,10 @@ package routes
 
 import (
 	"math/rand"
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/translate-bot-dcube/bot-backend/utils"
 )
 
 var validity = []string{"expired", "valid"}
@@ -47,15 +47,16 @@ func QueryMOMStatus(c *gin.Context) {
 	var requestBody QueryStatusRequestBody
 
 	if err := c.BindJSON(&requestBody); err != nil {
-		c.String(http.StatusBadRequest, "User information not found!")
+		utils.MakeBadRequestResponse(c, "ERR001", "User information not found!")
+		return
 	}
 
 	service := c.Param("service")
 
 	switch service {
 	case "check-pass":
-		c.String(http.StatusOK, QueryMOMResponse(requestBody, service))
+		utils.MakeOkResponse(c, QueryMOMResponse(requestBody, service))
 	default:
-		c.String(http.StatusBadRequest, "Service not found!")
+		utils.MakeBadRequestResponse(c, "ERR002", "Service not found!")
 	}
 }
